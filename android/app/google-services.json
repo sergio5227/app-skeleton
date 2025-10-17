@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "986618549209",
+    "project_id": "test-de-notificaciones-af2f8",
+    "storage_bucket": "test-de-notificaciones-af2f8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:986618549209:android:59c43cd9ac2c09849ebfc8",
+        "android_client_info": {
+          "package_name": "com.test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_ZJ2E06bBJX4L-vpeJIZSElMdBt58Y5Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
