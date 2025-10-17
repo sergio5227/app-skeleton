@@ -1,18 +1,17 @@
 import React, {
-    useCallback,
     useContext,
     useEffect,
     useState
 } from 'react';
 import messaging from '@react-native-firebase/messaging';
 import CustomAlert from '../components/CustomDialog/CustomDialog';
-import { crashLyticsContext } from './crashLyticsContext';
+import { CrashlyticsContext } from './crashLyticsContext';
 
 export const notificationContext = React.createContext(null);
 
 export const ProviderNotificationContextComponent: any = ({ children }: any) => {
 
-    const crashLytics = useContext(crashLyticsContext);
+    const crashLytics = useContext(CrashlyticsContext);
 
     const [title, setTitle] = useState('');
     const [message, setMessage] = useState('');
@@ -59,7 +58,7 @@ export const ProviderNotificationContextComponent: any = ({ children }: any) => 
             const token = await messaging().getToken();
             console.log('FCM Token para enviar al backend para que guarde el dispositivo en BD:', token);
         } catch (error) {
-            crashLytics?.setLogControlledCrashlytics('Error al obtener el token de messaging firebase' + error, '00001', 'notificacion context', 'online')
+            crashLytics?.setLogControlledCrashlytics('Error al obtener el token de messaging firebase' + error, '00001', 'notificacion context')
             console.log('Error al obtener token:', error);
         }
     }
@@ -83,7 +82,7 @@ export const ProviderNotificationContextComponent: any = ({ children }: any) => 
     return (
         <notificationContext.Provider value={null}>
             {children}
-            <CustomAlert title={title} mesage={message} open={open} onClose={() => setOpen(false)} onAcept={() => setOpen(false)} />
+            <CustomAlert title={title} mesage={message} open={open} onCloseX={() => setOpen(false)} onClose={() => setOpen(false)} onAcept={() => setOpen(false)} />
         </notificationContext.Provider>
     );
 }
