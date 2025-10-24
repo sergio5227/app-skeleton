@@ -82,7 +82,14 @@ export const ProviderNotificationContextComponent: any = ({ children }: any) => 
     return (
         <notificationContext.Provider value={null}>
             {children}
-            <CustomAlert title={title} mesage={message} open={open} onCloseX={() => setOpen(false)} onClose={() => setOpen(false)} onAcept={() => setOpen(false)} />
+            <CustomAlert
+                title={title}
+                mesage={message}
+                open={open}
+                onCloseX={() => setOpen(false)}
+                onClose={() => setOpen(false)}
+                onAcept={() => setOpen(false)}
+            />
         </notificationContext.Provider>
     );
 }

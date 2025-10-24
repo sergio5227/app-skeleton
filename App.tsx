@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   StatusBar,
-  useColorScheme
+  useColorScheme,
+  View
 } from 'react-native';
 import {
   SafeAreaProvider
@@ -17,16 +18,18 @@ const App = () => {
 
 
   return (
-    <PaperProvider>
-      <ProviderCrashlyticsContextComponent>
-        <ProviderNotificationContextComponent>
-          <SafeAreaProvider>
-            <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-            <HomeScreen />
-          </SafeAreaProvider>
-        </ProviderNotificationContextComponent>
-      </ProviderCrashlyticsContextComponent>
-    </PaperProvider>
+    <SafeAreaProvider>
+      <View style={{ flex: 1,  marginTop:40 }}>
+        <PaperProvider >
+          <ProviderCrashlyticsContextComponent >
+            <ProviderNotificationContextComponent >
+              <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+              <HomeScreen />
+            </ProviderNotificationContextComponent>
+          </ProviderCrashlyticsContextComponent>
+        </PaperProvider>
+      </View>
+    </SafeAreaProvider>
   );
 }
 

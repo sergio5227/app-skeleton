@@ -21,7 +21,7 @@ interface ProviderCrashlyticsContextProps {
 }
 
 /**
- * Definición de las funciones del contexto
+ * funciones del contextoo
  */
 interface CrashlyticsContextValue {
   setLogControlledCrashlytics: (title: string, userId?: string, pantalla?: string) => Promise<void>;
@@ -95,7 +95,7 @@ export const ProviderCrashlyticsContextComponent: FC<ProviderCrashlyticsContextP
         isFatal,
       });
 
-      // Llamar al handler original si existía
+      // Llamar al handler original si es que exitw
       if (defaultHandler) {
         defaultHandler(error, isFatal);
       }

@@ -1,55 +1,31 @@
-import { View } from "react-native";
-import { useCrashlytics } from "../../hooks/useCrashlytics";
+import { Dimensions, View } from "react-native";
 import { Button } from "react-native-paper";
 import { useState } from "react";
-import CustomAlert from "../../components/CustomDialog/CustomDialog";
+import NavegacionSimulada from "../../components/MapaNavegacion/MapaNavegacion";
+import Test from "../../components/MapaNavegacion/test";
 
 const HomeScreen = () => {
-
-    const { logError, setLogControlledCrashlytics } = useCrashlytics();
-    
-    const [title, setTitle] = useState('');
-    const [message, setMessage] = useState('');
-    const [open, setOpen] = useState(false);
-
-    const provocarError = () => {
-        try {
-            throw new Error('Error simulado al presionar el botón');
-        } catch (err) {
-            logError(err, {
-                pantalla: 'EjemploComponent',
-                user_id: 'USR_123',
-            });
-        }
-    };
-
-    const registrarEvento = async () => {
-        await setLogControlledCrashlytics('Usuario hizo click en registrar evento', 'USR_123', 'PantallaEjemplo');
-    };
+    const height = Dimensions.get('screen').height
+    const [opt, setOpt] = useState(0)
     return (
-        <>
-            <View style={{ marginTop: 50 }}>
-                <Button onPress={() => {
-                    setTitle('Título general');
-                    setMessage('Este es un mensaje de prueba para los alerts');
-                    setOpen(true)
-                }} >Clic aqui para abrir dialog</Button>
-                <Button onPress={provocarError} >Provocar error</Button>
-                <Button onPress={registrarEvento}>Registrar evento controlado</Button>
-
+        <View style={{ height, }}>
+            <View style={{ flex: 1 }}>
+                {opt === 1 ? <NavegacionSimulada
+                    regresar={() => setOpt(0)}
+                    destino={{
+                        latitude: 19.41381330912339,
+                        longitude: -99.13624336264698
+                    }} /> : opt === 2 ? <Test regresar={() => setOpt(0)} destino={{
+                        latitude: 19.41381330912339,
+                        longitude: -99.13624336264698
+                    }} /> :
+                    <View style={{ flex: 1 }}>
+                        <Button onPress={() => setOpt(1)} >Opción 1</Button>
+                        <Button onPress={() => setOpt(2)}>Opción 2</Button>
+                    </View>
+                }
             </View>
-            <CustomAlert
-                title={title}
-                titleAceptButton='Aceptar promoción'
-                titleCancelButton='Rechazar promoción'
-                mesage={message}
-                open={open}
-                onCloseX={() => setOpen(false)}
-                onClose={() => {
-                    throw new Error("truena la app crash");
-                }}
-                onAcept={() => setOpen(false)} />
-        </>
+        </View>
     )
 }
 
