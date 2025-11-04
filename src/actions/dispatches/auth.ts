@@ -1,0 +1,9 @@
+export const SET_USER = "@SET_USER";
+
+export const setUser = (user: any) => {
+    return {
+        type: SET_USER,
+        value: user,
+    };
+};
+

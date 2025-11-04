@@ -7,9 +7,8 @@ import haversine from 'haversine-distance';
 import polyline from '@mapbox/polyline';
 import { compararCoordenadas } from '../../utils/utils';
 import { getDireccion } from '../../actions/http/navegacion';
-import NetInfo from '@react-native-community/netinfo'
+import NetInfo, { addEventListener } from '@react-native-community/netinfo'
 import { Destino } from './test';
-
 
 
 const DISTANCIA_CAMBIO_STEP = 35; // metros
@@ -27,15 +26,33 @@ const useTest = (destino: Destino) => {
     const [polylinePoints, setPolylinePoints] = useState<any[]>([]);
     const [enDestino, setEnDestino] = useState(false);
     const [isSwitchOn, setIsSwitchOn] = useState(true);
+    const [distance, setDistance] = useState(null);
+    const [duration,setDuration] = useState(null);
 
-    const onToggleSwitch = () => {
-        setIsSwitchOn(!isSwitchOn)
+   /*  const unsubscribe = addEventListener(state => {
+        console.log("Connection type", state.type);
+        console.log("Is connected?", state.isConnected);
+    });
+
+    // Unsubscribe
+    unsubscribe(); */
+
+    const onToggleSwitch = async () => {
+        if (isSwitchOn) {
+            await Tts.stop();
+        }
+        setIsSwitchOn(!isSwitchOn);
+        if (!isSwitchOn) {
+            const habla = instrucciones[indicePaso]
+                ? instrucciones[indicePaso].html_instructions.replace(/<[^>]+>/g, '')
+                : enDestino ? 'Haz llegado a tu destino' : 'Calculando la ruta...'
+            speak(habla, 'boton_de_hablar');
+        }
     };
 
     const speak = async (text: string, origen: string) => {
         try {
-            if (!isSwitchOn) return;
-            console.log('origen', origen)
+            if (!isSwitchOn && origen !== 'boton_de_hablar') return;
             setInstruccionActual(text)
             await Tts.setDefaultLanguage('es-MX');
             await Tts.setDucking(true);
@@ -63,7 +80,7 @@ const useTest = (destino: Destino) => {
                 const cambio = compararCoordenadas(coords, origen);
 
                 const validaEnDestino = compararCoordenadas(coords, destino, 50);
-                console.log('validaEnDestino', validaEnDestino, cambio, instrucciones)
+
                 if (validaEnDestino?.iguales) {
                     marcaEnDestino(true)
                 }
@@ -140,7 +157,7 @@ const useTest = (destino: Destino) => {
             mapRef.current?.animateCamera({
                 center: { latitude: siguientePos.lat, longitude: siguientePos.lng },
                 zoom: 20,
-                pitch: 65,
+                pitch: 60,
                 heading,
             }, { duration: 1000 });
         } else {
@@ -225,10 +242,14 @@ const useTest = (destino: Destino) => {
 
     const onReady = async (result: any) => {
 
+        console.log('onReady', result)
         if (!result?.legs?.[0]?.steps) return;
 
+        setDistance(result.distance.toFixed(2))
+        setDuration(result.duration.toFixed(2))
+        
         const pasos = result.legs[0].steps;
-        console.log('?.iguales', enDestino)
+
         setInstrucciones(enDestino ? [] : pasos);
 
         const routePoints = polyline.decode(result.overview_polyline.points).map((p: any) => ({
@@ -247,13 +268,12 @@ const useTest = (destino: Destino) => {
         mapRef.current?.animateCamera({
             center: start,
             zoom: 20,
-            pitch: 65,
+            pitch: 60,
             heading,
         }, { duration: 1000 });
     };
 
     useEffect(() => {
-        console.log('_Este es el que dispara el speak', instrucciones, indicePaso, enDestino)
         const primera = instrucciones[0]?.html_instructions?.replace(/<[^>]+>/g, '');
         if (instrucciones.length > 0 && indicePaso === 0 && instruccionActual !== primera && !enDestino) {
             if (primera) {
@@ -274,6 +294,32 @@ const useTest = (destino: Destino) => {
         [origen]
     );
 
+    const centerMap = () => {
+        mapRef.current?.animateCamera({
+            center: origen,
+            zoom: 17,
+            pitch: 60,
+            heading,
+        }, { duration: 1000 });
+    }
+
+    const fitRuta = () => {
+        if (!mapRef.current || !origen || !destino) return;
+
+        mapRef.current.fitToCoordinates(
+            [origen, destino],
+            {
+                edgePadding: {
+                    top: 100,
+                    right: 50,
+                    bottom: 100,
+                    left: 50,
+                },
+                animated: true,
+            }
+        );
+    };
+
     return {
         origen,
         mapRef,
@@ -284,7 +330,11 @@ const useTest = (destino: Destino) => {
         regionInicial,
         enDestino,
         onToggleSwitch,
-        isSwitchOn
+        isSwitchOn,
+        centerMap,
+        fitRuta,
+        distance,
+        duration
     };
 
 };

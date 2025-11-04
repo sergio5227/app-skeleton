@@ -1,19 +1,14 @@
 import { StyleSheet } from "react-native";
 
 const MapaNavegacionStyles = StyleSheet.create({
-    container: { flex: 1 },
+    container: { flex: 1},
     panel: {
-        position: 'absolute',
-        bottom: 87,
+        borderRadius:0,
         backgroundColor: '#fff',
-        width: '100%',
-        padding: 15,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        elevation: 5,
+        padding: 10
     },
     paso: {
-        fontSize: 15,
+        fontSize: 13,
         fontWeight: '600',
         textAlign: 'center'
     },
