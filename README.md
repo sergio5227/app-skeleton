@@ -22,4 +22,5 @@ languajes: los lenguajes en para los que se tiene soporte
 ### Aqui tenemos un eskeleto de una app react native
 
 # la aplicación tienen react native papaer axios, tiene crashlytics, push notifications con firebase
-# y tiene un pequeño sistema de navegación tipo waze pero light y redux toolkit 
+# y tiene un pequeño sistema de navegación tipo waze pero light y redux toolkit, react native navigation, con stack navigation y drawer 
+# navigation 

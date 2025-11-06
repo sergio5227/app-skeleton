@@ -7,32 +7,35 @@ import {
 } from 'react-native';
 import {
   SafeAreaProvider,
-  useSafeAreaInsets
+  SafeAreaView
 } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { ProviderNotificationContextComponent } from './src/contexts/notificationContext';
 import { PaperProvider } from 'react-native-paper';
 import { ProviderCrashlyticsContextComponent } from './src/contexts/crashLyticsContext';
-import HomeScreen from './src/screens/home/HomeScreen';
-
-
-
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from './src/store/index';
+import { NavigationContainer } from '@react-navigation/native';
+import MainNavigator from './src/navigators/mainNavigator/mainNavigator';
 
 const App = () => {
 
   const isDarkMode = useColorScheme() === 'dark';
 
-
   return (
     <SafeAreaProvider>
-      <View style={{ flex: 1 }}>
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        backgroundColor="transparent"
+      />
+      <SafeAreaView style={{
+        flex: 1,
+        borderRadius: 16,
+        backgroundColor: 'white'
+      }}>
         <PaperProvider>
-
           <ProviderCrashlyticsContextComponent>
             <ProviderNotificationContextComponent>
-              <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
               <Provider store={store}>
                 <PersistGate
                   loading={
@@ -42,16 +45,16 @@ const App = () => {
                   }
                   persistor={persistor}
                 >
-
-                  <HomeScreen />
+                  <NavigationContainer>
+                    <MainNavigator />
+                  </NavigationContainer>
                 </PersistGate>
               </Provider>
             </ProviderNotificationContextComponent>
           </ProviderCrashlyticsContextComponent>
-
         </PaperProvider>
-      </View>
-    </SafeAreaProvider >
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 

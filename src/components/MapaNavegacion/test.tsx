@@ -80,7 +80,7 @@ const Test: FC<NavegacionSimuladaProps> = ({ destino, regresar }) => {
                 </Text>
             </View> : null}
 
-            <View style={{ flex: 1, backgroundColor: 'red' }}>
+            <View style={{ flex: 1 }}>
                 <MapView
                     customMapStyle={mapStyle}
                     showsBuildings={false}

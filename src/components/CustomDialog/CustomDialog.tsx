@@ -49,7 +49,7 @@ const CustomAlert: FC<CustomAlertProps> = ({ title, mesage, open, onClose, onAce
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        
         justifyContent: 'center',
         alignItems: 'center',
     },

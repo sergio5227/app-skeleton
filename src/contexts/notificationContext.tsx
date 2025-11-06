@@ -6,6 +6,7 @@ import React, {
 import messaging from '@react-native-firebase/messaging';
 import CustomAlert from '../components/CustomDialog/CustomDialog';
 import { CrashlyticsContext } from './crashLyticsContext';
+import { View } from 'react-native';
 
 export const notificationContext = React.createContext(null);
 
@@ -81,7 +82,9 @@ export const ProviderNotificationContextComponent: any = ({ children }: any) => 
 
     return (
         <notificationContext.Provider value={null}>
-            {children}
+            <View style={{ flex: 1 }}>
+                {children}
+            </View>
             <CustomAlert
                 title={title}
                 mesage={message}

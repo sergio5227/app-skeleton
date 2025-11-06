@@ -37,30 +37,30 @@ export const ProviderCrashlyticsContextComponent: FC<ProviderCrashlyticsContextP
   /**
    * Función genérica para registrar errores controlados
    */
-  const logError = useCallback( (error: unknown, contextInfo: Record<string, any> = {}) => {
-      
+  const logError = useCallback((error: unknown, contextInfo: Record<string, any> = {}) => {
+
     if (isDev) {
-        console.log('[Crashlytics:DevLog]', error, contextInfo);
-        return;
-      }
+      console.log('[Crashlytics:DevLog]', error, contextInfo);
+      return;
+    }
 
-      const sendError = typeof error === 'string' ? error : JSON.stringify(error);
+    const sendError = typeof error === 'string' ? error : JSON.stringify(error);
 
-      const err =
-        error instanceof Error
-          ? error
-          : new Error(sendError);
+    const err =
+      error instanceof Error
+        ? error
+        : new Error(sendError);
 
-      const timestamp = new Date().toISOString();
+    const timestamp = new Date().toISOString();
 
-      // Registrar atributos personalizados
-      setAttribute(crashlytics, 'timestamp', timestamp);
-      Object.entries(contextInfo).forEach(([key, value]) => {
-        setAttribute(crashlytics, key, String(value));
-      });
-      log(crashlytics, `[CustomError]: ${err.message}`);
-      recordError(crashlytics, err);
-    },
+    // Registrar atributos personalizados
+    setAttribute(crashlytics, 'timestamp', timestamp);
+    Object.entries(contextInfo).forEach(([key, value]) => {
+      setAttribute(crashlytics, key, String(value));
+    });
+    log(crashlytics, `[CustomError]: ${err.message}`);
+    recordError(crashlytics, err);
+  },
     [crashlytics, isDev]
   );
 
@@ -103,7 +103,7 @@ export const ProviderCrashlyticsContextComponent: FC<ProviderCrashlyticsContextP
   }, [logError]);
 
   const contextValue = useMemo(() => ({ setLogControlledCrashlytics, logError }), [setLogControlledCrashlytics, logError]);
-  
+
   return (
     <CrashlyticsContext.Provider value={contextValue}>
       {children}

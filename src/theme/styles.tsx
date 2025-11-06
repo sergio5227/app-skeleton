@@ -13,8 +13,8 @@ export const mainCcolors = {
     whiteText:'#fff',
 }
 
-export const mainStyle = StyleSheet.create(({
+export const mainStyle = StyleSheet.create({
     container: {
         flex: 1
     }
-}));
+});
