@@ -8,7 +8,7 @@ import rootReducer from "../reducers/appReducer";
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  whitelist: ["app"], // puedes poner los reducers que quieres guardar
+  whitelist: ["app"], // reducers que se nececiten
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -66,6 +66,7 @@ const Test: FC<NavegacionSimuladaProps> = ({ destino, regresar }) => {
     return (
         <View style={MapaNavegacionStyles.container}>
             <KeepAwake />
+            {/* instrucciones */}
             <View style={MapaNavegacionStyles.panel}>
                 <Text style={MapaNavegacionStyles.paso}>
                     {instrucciones[indicePaso]
@@ -74,12 +75,13 @@ const Test: FC<NavegacionSimuladaProps> = ({ destino, regresar }) => {
 
                 </Text>
             </View>
+            {/* información del viaje */}
             {distance && duration ? <View style={MapaNavegacionStyles.panel}>
                 <Text style={{ ...MapaNavegacionStyles.paso, ...{ fontWeight: '400', fontSize: 12, color: MD3Colors.error60 } }}>
                     {`Distancia:${distance} km, tiempo aproximado de recorrido: ${duration} hrs`}
                 </Text>
             </View> : null}
-
+            {/* mapa  */}
             <View style={{ flex: 1 }}>
                 <MapView
                     customMapStyle={mapStyle}
@@ -125,7 +127,7 @@ const Test: FC<NavegacionSimuladaProps> = ({ destino, regresar }) => {
                     />
                 </MapView>
             </View>
-            {/* Panel de instrucciones */}
+            {/* Panel de acciones */}
             <View style={{ ...MapaNavegacionStyles.panel, ...{ borderRadius: 0 } }}>
                 <View style={MapaNavegacionStyles.acciones}>
                     <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>

@@ -11,6 +11,7 @@ interface CustomAlertProps {
     onAcept?: () => void
     titleAceptButton?: string
     titleCancelButton?: string
+    type?:'error'|'info'|'warning'|'success'
 
 }
 

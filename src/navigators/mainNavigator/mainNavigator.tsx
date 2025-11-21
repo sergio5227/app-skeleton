@@ -1,26 +1,26 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from '../../screens/login/loginScreen';
-import HomeScreen from '../../screens/home/HomeScreen';
-import HomePeliculas from '../../screens/homePeliculas/homePeliculas';
-import DetailsPeliculas from '../../screens/detailsPeliculas/detailsPeliculas';
+import MisBonsais from '../../screens/misBonsais/misBonsais';
+import ExplorarEspecies from '../../screens/explorarEspecies/explorarEspecies';
+import Inicio from '../../screens/inicio/inicio';
+import Calendario from '../../screens/calendario/calendario';
 
 export type RootStackParams = {
-    HomePeliculas: undefined,
-    DetailsPeliculas: undefined,
-    LoginScreen: undefined,
-    HomeScreen: undefined,
+    InicioApp: undefined;
+    MisBonsais: { regresar:boolean, data:any };
+    ExplorarEspecies: { regresar:boolean, data:any };
+    Calendario:{ regresar:boolean, data:any };
 }
 
 const MainNavigator = () => {
     const Stack = createNativeStackNavigator<RootStackParams>();
     return (
-        <Stack.Navigator screenOptions={{
+        <Stack.Navigator initialRouteName="InicioApp" screenOptions={{
             headerShown: true,
         }}>
-            <Stack.Screen options={{ headerShown: false }} name="HomePeliculas" component={HomePeliculas} />
-            <Stack.Screen options={{ headerShown: false }} name="DetailsPeliculas" component={DetailsPeliculas} />
-            <Stack.Screen options={{ headerShown: false }} name="LoginScreen" component={LoginScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="HomeScreen" component={HomeScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="InicioApp" component={Inicio} />
+            <Stack.Screen options={{ headerShown: false }} name="MisBonsais" component={MisBonsais} />
+            <Stack.Screen options={{ headerShown: false }} name="ExplorarEspecies" component={ExplorarEspecies} />
+            <Stack.Screen options={{ headerShown: false }} name="Calendario" component={Calendario} />
         </Stack.Navigator>
     )
 }

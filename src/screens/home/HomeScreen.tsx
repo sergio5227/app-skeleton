@@ -1,13 +1,13 @@
 import { Text, View } from "react-native";
-import { Button, Icon, IconButton } from "react-native-paper";
+import { Button, IconButton } from "react-native-paper";
 import { useState } from "react";
-import NavegacionSimulada from "../../components/MapaNavegacion/MapaNavegacion";
 import Test from "../../components/MapaNavegacion/test";
 import { showLocation } from 'react-native-map-link';
 import { useDispatch, useSelector } from "react-redux";
 import { setCount } from "../../actions/dispatches/counter";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParams } from "../../navigators/mainNavigator/mainNavigator";
+import { mainStyle } from "../../theme/styles";
 
 const HomeScreen = () => {
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
@@ -45,29 +45,25 @@ const HomeScreen = () => {
     }
 
     return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
-            <View style={{ alignItems: 'stretch'}}>
+        <View style={mainStyle.container}>
+            <View style={{ alignItems: 'stretch' }}>
                 <IconButton
                     icon="arrow-left-circle"
                     iconColor={'#212121ff'}
                     size={25}
-                    style={{margin:0}}
+                    style={{ margin: 0 }}
                     onPress={() => navigation.goBack()}
                 />
             </View>
-            {opt === 1 ? <NavegacionSimulada
-                regresar={() => setOpt(0)}
-                destino={destino} /> : null}
 
             {opt === 2 ? <Test regresar={() => setOpt(0)} destino={destino} /> : null}
 
-            {opt === 0 ? <View style={{  }}>
-                <Button onPress={() => setOpt(1)} >Opción 1</Button>
-                <Button onPress={() => setOpt(2)}>Opción 2</Button>
+            {opt === 0 ? <View style={{}}>
+                <Button onPress={() => setOpt(1)} >Navegar</Button>
                 <Button onPress={() => handleNavigate()}>OPCIONES DE LA LISTA</Button>
             </View> : null}
 
-            <View style={{ borderWidth:1, flex:1,justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
+            <View style={{ borderWidth: 1, flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
                 <Text> {cuenta} </Text>
             </View>
 

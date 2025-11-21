@@ -7,13 +7,12 @@ interface Options {
     params: Record<string, string>;
 }
 
-
 export class AxiosAdapter implements HttpAdapter {
 
-    private axiosInstance: AxiosInstance;
+    private readonly axiosInstance: AxiosInstance;
 
     constructor(options: Options) {
-        
+
         this.axiosInstance = axios.create({
             baseURL: options.baseUrl,
             params: options.params,
@@ -42,6 +41,36 @@ export class AxiosAdapter implements HttpAdapter {
         } catch (error) {
             console.log(error, url)
             throw new Error(`Error fetching get: ${url} `);
+        }
+    }
+
+    async post<T>(url: string, body: object, options?: Record<string, unknown>): Promise<T> {
+        try {
+            const { data } = await this.axiosInstance.post(url, body, options);
+            return data;
+        } catch (error) {
+            console.log(error, url)
+            throw new Error(`Error fetching post: ${url} `);
+        }
+    }
+
+    async put<T>(url: string, body: object, options?: Record<string, unknown>): Promise<T> {
+        try {
+            const { data } = await this.axiosInstance.put(url, body, options);
+            return data;
+        } catch (error) {
+            console.log(error, url)
+            throw new Error(`Error fetching put: ${url} `);
+        }
+    }
+
+    async delete<T>(url: string, options?: Record<string, unknown> | undefined): Promise<T> {
+        try {
+            const { data } = await this.axiosInstance.delete<T>(url, options);
+            return data;
+        } catch (error) {
+            console.log(error, url)
+            throw new Error(`Error fetching delete: ${url} `);
         }
     }
 
