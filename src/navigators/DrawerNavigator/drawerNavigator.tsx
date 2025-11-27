@@ -1,6 +1,5 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Acerca from '../../screens/acerca/acerca';
-import Help from '../../screens/help/help';
 import MisBonsais from '../../screens/misBonsais/misBonsais';
 import Calendario from '../../screens/calendario/calendario';
 import ExplorarEspecies from '../../screens/explorarEspecies/explorarEspecies';
@@ -12,7 +11,6 @@ import { Appearance } from 'react-native';
 import DrawerOptionsNav from './DrawerOptionsNav/DrawerOptionsNav';
 import { mainCcolors, mainStyle } from '../../theme/styles';
 import { IconButton } from 'react-native-paper';
-import iconNames from 'react-native-vector-icons/glyphmaps/MaterialCommunityIcons.json';
 import { useSelector } from 'react-redux';
 
 
@@ -24,7 +22,7 @@ export type RootDrawerParams = {
     MiPerfil: undefined;
     Contacto: undefined;
     Acerca: undefined;
-    Help: undefined;
+
 }
 
 const DrawerNavigator = () => {
@@ -150,19 +148,6 @@ const DrawerNavigator = () => {
                 }}
 
                 component={Acerca} />
-            <Drawer.Screen name="Help"
-                options={{
-                    drawerItemStyle: mainStyle.drawerItemStyle,
-                    drawerIcon: ({ color, size }) =>
-                        <IconButton
-                            icon="help-box"
-                            iconColor={Appearance.getColorScheme() === 'dark' ? mainCcolors.whiteText : mainCcolors.darkText}
-                            size={15}
-                            style={{ margin: 0, padding: 0 }}
-                        />,
-                    drawerLabel: 'Ayuda'
-                }}
-                component={Help} />
         </Drawer.Navigator>
     )
 }

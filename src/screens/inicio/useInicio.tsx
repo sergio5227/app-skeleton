@@ -1,5 +1,5 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { Animated, Dimensions, Easing } from "react-native"
+import { Animated, Dimensions } from "react-native"
 import { RootStackParams } from "../../navigators/mainNavigator/mainNavigator";
 import { useBottomSheet } from "../../contexts/bottomSheetContext";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -8,23 +8,23 @@ import { setTheme } from "../../actions/dispatches/theme";
 
 const useInicio = () => {
 
+    const animatedOpacity = useRef(new Animated.Value(0)).current;
+    const fadeAnim = useRef(new Animated.Value(0)).current;
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(true);
     const dispatch = useDispatch();
     const theme = useSelector((state: any) => state?.app?.theme || '#fff');
-    const fadeAnim = useRef(new Animated.Value(0)).current;
     const currentIndex = useRef(0);
     const { width } = Dimensions.get("window");
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
     const { bottomSheetRef } = useBottomSheet();
     const [idSeleccionado, setIdSeleccionado] = useState<any>(0);
-    const [bgColor, setBgColor] = useState<any>('#fff');
     const flatListRef = useRef<any>([]);
     const [scrollViewWidth] = useState(0);
     const boxWidth = scrollViewWidth * 0.9;
     const boxDistance = scrollViewWidth - boxWidth;
     const halfBoxDistance = boxDistance / 2;
     const scrollX = useRef(new Animated.Value(0)).current;
-    
+
     const data = [
         {
             id: 1,
@@ -53,21 +53,20 @@ const useInicio = () => {
     const handleViewableItemsChanged = useCallback(({ viewableItems }: any) => {
         if (viewableItems.length > 0) {
             const index = viewableItems[0].index;
-            setIdSeleccionado(String(index ?? "0"));
-            Animated.sequence([
-                Animated.timing(fadeAnim, {
-                    toValue: 0,
-                    duration: 150,
-                    easing: Easing.out(Easing.ease),
-                    useNativeDriver: true,
-                }),
-                Animated.timing(fadeAnim, {
-                    toValue: 1,
-                    duration: 200,
-                    easing: Easing.out(Easing.ease),
-                    useNativeDriver: true,
-                })
-            ]).start();
+            Animated.timing(fadeAnim, {
+                toValue: 0,
+                duration: 300,
+                useNativeDriver: true,
+            }).start(() => {
+                setTimeout(() => {
+                    setIdSeleccionado(String(index ?? "0"));
+                    Animated.timing(fadeAnim, {
+                        toValue: 1,
+                        duration: 300,
+                        useNativeDriver: true,
+                    }).start()
+                }, 500);
+            })
         }
     }, []);
 
@@ -76,7 +75,6 @@ const useInicio = () => {
             currentIndex.current += 1;
             if (currentIndex.current >= data.length) {
                 currentIndex.current = 0;
-                setIdSeleccionado(0);
             }
             flatListRef.current?.scrollToIndex({
                 index: currentIndex.current,
@@ -88,7 +86,6 @@ const useInicio = () => {
 
     const handleColor = () => {
         dispatch(setTheme(data?.[idSeleccionado]?.color || '#fff'));
-        setBgColor(data?.[idSeleccionado]?.color || '#fff');
     }
 
 
@@ -97,14 +94,28 @@ const useInicio = () => {
     }, [idSeleccionado, handleColor]);
 
     const handleSheetChanges = useCallback((index: number) => {
-        setIsBottomSheetOpen(index > 0); // si esta en 0 esta cerrada
+        Animated.timing(animatedOpacity, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: true
+        }).start(() => {
+            setIsBottomSheetOpen(index > 0);
+            setTimeout(() => {
+                Animated.timing(animatedOpacity, {
+                    toValue: 1,
+                    duration: 300,
+                    useNativeDriver: true
+                }).start()
+            }, 1000);
+        })
+
     }, []);
+
     return {
         theme,
         isBottomSheetOpen,
         handleSheetChanges,
         bottomSheetRef,
-        bgColor,
         fadeAnim,
         data,
         idSeleccionado,
@@ -114,7 +125,8 @@ const useInicio = () => {
         scrollX,
         navigation,
         handleViewableItemsChanged,
-        width
+        width,
+        animatedOpacity
     }
 }
 

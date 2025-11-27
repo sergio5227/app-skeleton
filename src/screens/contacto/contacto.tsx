@@ -1,46 +1,75 @@
-import { StyleSheet, Text, View } from "react-native"
+import { Pressable, StyleSheet, Text, View } from "react-native"
 import CustomHeader from "../../navigators/DrawerNavigator/customHeader";
 import { mainStyle } from "../../theme/styles";
 import ContactoForm from "../../forms/contacto/contactoForm";
-import { useSelector } from "react-redux";
 import CustomAlert from "../../components/CustomDialog/CustomDialog";
-import { useState } from "react";
 import LoaderIndicator from "../../components/LoaderIndicator/LoaderIndicator";
+import { IconButton } from "react-native-paper";
+import useContacto from "./useContacto";
+import contactoStyles from "./contactoStyle";
 
 const Contacto = () => {
-    const theme = useSelector((state: any) => state?.app?.theme || '#fff');
-    const [title, setTitle] = useState('');
-    const [message, setMessage] = useState('');
-    const [open, setOpen] = useState(false);
-    const [loading, setLoading] = useState(false);
 
-    const handleContacto = (data: any) => {
-        try {
-            setLoading(true);
-            console.log(data);
-            setTitle('Exito');
-            setMessage('Exito al enviar su mensaje, pronto recibira noticias nuestras');
-            setOpen(true);
-            setLoading(false);
-        } catch (error) {
-            console.log(error);
-            setTitle('Error');
-            setMessage('Error al enviar su mensaje, intente más tarde');
-            setOpen(true);
-            setLoading(false);
-        }
-    }
+    const {
+        theme,
+        open,
+        handleContacto,
+        openFacebook,
+        openInstagram,
+        openYoutube,
+        title,
+        message,
+        setOpen,
+        loading
+    } = useContacto();
 
     return (
-        <View style={{ ...mainStyle.container, ...{} }}>
+        <View style={mainStyle.container}>
             <CustomHeader bgColor={theme} />
             <View style={contactoStyles.container}>
-                <Text style={mainStyle.mainTitle}>
-                    Contactanos
-                </Text>
-                {!open ? <ContactoForm onSubmit={(a) => {
-                    handleContacto(a)
-                }} /> : null}
+                <View>
+                    <Text style={mainStyle.mainTitle}>
+                        Contactanos
+                    </Text>
+                </View>
+                <View style={{ flex: 4 }}>
+                    {open ? null : <ContactoForm onSubmit={(a) => {
+                        handleContacto(a)
+                    }} />}
+                </View>
+                <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+                    <View>
+                        <Text>
+                            Tambien contactanos por nuestras redes sociales
+                        </Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                        <Pressable onPress={openFacebook}>
+                            <IconButton
+                                icon="facebook"
+                                iconColor={'#464edcff'}
+                                size={50}
+                                style={{ margin: 0, padding: 0 }}
+                            />
+                        </Pressable>
+                        <Pressable onPress={openInstagram}>
+                            <IconButton
+                                icon="instagram"
+                                iconColor={'#e827abff'}
+                                size={50}
+                                style={{ margin: 0, padding: 0 }}
+                            />
+                        </Pressable>
+                        <Pressable onPress={openYoutube}>
+                            <IconButton
+                                icon="youtube"
+                                iconColor={'#f12c2cff'}
+                                size={50}
+                                style={{ margin: 0, padding: 0 }}
+                            />
+                        </Pressable>
+                    </View>
+                </View>
             </View >
             <CustomAlert
                 title={title}
@@ -49,19 +78,11 @@ const Contacto = () => {
                 onCloseX={() => setOpen(false)}
                 onAcept={() => setOpen(false)}
             />
-             <LoaderIndicator visible={loading} />
+            <LoaderIndicator visible={loading} />
         </View>
     )
 }
 
-const contactoStyles = StyleSheet.create({
-    container: {
-        marginTop: 50,
-        flex: 1,
-        marginVertical: 15,
-        paddingLeft: 10,
-        paddingRight: 10
-    }
-})
+
 
 export default Contacto;

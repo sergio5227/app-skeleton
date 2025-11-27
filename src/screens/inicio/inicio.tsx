@@ -1,4 +1,4 @@
-import { Animated, ImageBackground, StyleSheet, Text, View } from "react-native"
+import { Animated, ImageBackground, Text, View } from "react-native"
 import { FlatList } from "react-native-gesture-handler";
 import CustomHeader from "../../navigators/DrawerNavigator/customHeader";
 import { mainStyle } from "../../theme/styles";
@@ -17,7 +17,6 @@ const Inicio = () => {
         isBottomSheetOpen,
         handleSheetChanges,
         bottomSheetRef,
-        bgColor,
         fadeAnim,
         data,
         idSeleccionado,
@@ -27,7 +26,8 @@ const Inicio = () => {
         scrollX,
         navigation,
         handleViewableItemsChanged,
-        width
+        width,
+        animatedOpacity
    } = useInicio();
 
     return (
@@ -53,16 +53,17 @@ const Inicio = () => {
                     <CardInfo title="favoritos" value={9} />
                     <CardInfo title="Que hacer en" value={'Primavera'} />
                 </View>
-                <View style={{ height: isBottomSheetOpen ? 100 : 250, position: 'relative', bottom: isBottomSheetOpen ? 290 : 100, width: '100%' }}>
+
+                <Animated.View style={[{opacity:animatedOpacity},{ height: isBottomSheetOpen ? 100 : 250, position: 'relative', bottom: isBottomSheetOpen ? 290 : 100, width: '100%' }]}>
                     <BarChart alto={isBottomSheetOpen ? 100 : 250} title="Tus bonsais por especie" />
-                </View>
+                </Animated.View>
             </ImageBackground>
             <CustomBottomSheet
                 handleSheetChanges={handleSheetChanges}
                 index={1}
                 ref={bottomSheetRef}
                 snapPoints={['4%', '30%']}
-                backgroundColor={bgColor}
+                backgroundColor={theme}
             >
                 <View>
                     <View style={inicioStyles.descripcionContainer}>

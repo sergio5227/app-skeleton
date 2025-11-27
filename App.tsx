@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   StatusBar,
   useColorScheme,
@@ -19,53 +19,15 @@ import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from './src/store/index';
 import { NavigationContainer } from '@react-navigation/native';
 import DrawerNavigator from './src/navigators/DrawerNavigator/drawerNavigator';
+import Orientation from 'react-native-orientation-locker';
 
-/* const App = () => {
-
-  const isDarkMode = useColorScheme() === 'dark';
-  const theme = useSelector((state: any) => state?.app?.theme || '#fff');
-
-  return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaProvider>
-        <BottomSheetProvider>
-          <StatusBar
-            barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            backgroundColor="transparent"
-          />
-          <SafeAreaView style={{
-            flex: 1,
-            borderRadius: 16,
-            backgroundColor: theme
-          }}>
-            <PaperProvider>
-              <ProviderCrashlyticsContextComponent>
-                <ProviderNotificationContextComponent>
-                  <Provider store={store}>
-                    <PersistGate
-                      loading={
-                        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                          <ActivityIndicator size="large" color="#000" />
-                        </View>
-                      }
-                      persistor={persistor}
-                    >
-                      <NavigationContainer>
-                        <DrawerNavigator />
-                      </NavigationContainer>
-                    </PersistGate>
-                  </Provider>
-                </ProviderNotificationContextComponent>
-              </ProviderCrashlyticsContextComponent>
-            </PaperProvider>
-          </SafeAreaView>
-        </BottomSheetProvider>
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
-  );
-} */
 
 const App = () => {
+
+  useEffect(() => {
+    Orientation.lockToPortrait();
+  }, []);
+
   return (
     <Provider store={store}>
       <PersistGate
