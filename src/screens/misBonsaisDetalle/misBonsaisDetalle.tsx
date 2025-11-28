@@ -7,11 +7,8 @@ import { mainStyle } from "../../theme/styles";
 import { useSelector } from "react-redux";
 import misBonsaisDetalleStyle from "./misBonsaisDetalleStyle";
 
-
 const MisBonsaisDetalle = () => {
-
     const theme = useSelector((state: any) => state?.app?.theme || '#fff');
-
     return (
         <View style={mainStyle.container}>
             <CustomHeader bgColor={theme} />
@@ -21,7 +18,5 @@ const MisBonsaisDetalle = () => {
         </View>
     )
 }
-
-
 
 export default MisBonsaisDetalle;

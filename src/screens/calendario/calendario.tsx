@@ -7,10 +7,8 @@ import Agenda from "../../components/Agenda/Agenda";
 import { useSelector } from "react-redux";
 
 const Calendario = () => {
-
     const params = useRoute<RouteProp<RootStackParams, 'Calendario'>>().params;
     const theme = useSelector((state: any) => state?.app?.theme || '#fff');
-
     return (
         <View style={mainStyle.container}>
             <CustomHeader regresar={params?.regresar} bgColor={theme} />
@@ -22,7 +20,5 @@ const Calendario = () => {
         </View>
     )
 }
-
-
 
 export default Calendario;

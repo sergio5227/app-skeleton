@@ -8,9 +8,7 @@ import { useSelector } from "react-redux";
 import notificacionesStyle from "./notificacionesStyle";
 
 const Notificaciones = () => {
-
     const theme = useSelector((state: any) => state?.app?.theme || '#fff');
-
     return (
         <View style={mainStyle.container}>
             <CustomHeader bgColor={theme} />
@@ -20,7 +18,5 @@ const Notificaciones = () => {
         </View>
     )
 }
-
-
 
 export default Notificaciones;

@@ -12,6 +12,7 @@ import DrawerOptionsNav from './DrawerOptionsNav/DrawerOptionsNav';
 import { mainCcolors, mainStyle } from '../../theme/styles';
 import { IconButton } from 'react-native-paper';
 import { useSelector } from 'react-redux';
+import PerfilNavigator from '../perfilNavigator/perfilNavigator';
 
 
 export type RootDrawerParams = {
@@ -120,7 +121,7 @@ const DrawerNavigator = () => {
                         />,
                     drawerLabel: 'Mi perfíl'
                 }}
-                component={MiPerfil} />
+                component={PerfilNavigator} />
             <Drawer.Screen name="Contacto"
                 options={{
                     drawerItemStyle: mainStyle.drawerItemStyle,

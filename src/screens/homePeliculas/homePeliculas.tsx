@@ -1,5 +1,5 @@
 import { RefreshControl, ScrollView, Text, View } from "react-native"
-import { Button, IconButton } from "react-native-paper";
+import { IconButton } from "react-native-paper";
 import useHomePeliculas from "./useHomePeliculas";
 import { mainStyle } from "../../theme/styles";
 

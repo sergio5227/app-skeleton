@@ -1,6 +1,6 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { Text, View } from "react-native"
-import { Button, IconButton } from "react-native-paper";
+import { IconButton } from "react-native-paper";
 import { RootStackParams } from "../../navigators/mainNavigator/mainNavigator";
 import { mainStyle } from "../../theme/styles";
 

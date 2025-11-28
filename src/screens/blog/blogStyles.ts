@@ -6,7 +6,6 @@ const blogStyle = StyleSheet.create({
         marginTop: 50,
         paddingLeft: 10,
         paddingRight: 10,
-        
         justifyContent:'space-between',
         flexWrap:'wrap'
     }

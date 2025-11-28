@@ -74,7 +74,6 @@ const HomeScreen = () => {
             </View>
 
         </View>
-
     )
 }
 

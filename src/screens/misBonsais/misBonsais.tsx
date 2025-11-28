@@ -2,7 +2,6 @@ import { FlatList } from "react-native-gesture-handler";
 import { Animated, ImageBackground, Text, View } from "react-native"
 import CustomHeader from "../../navigators/DrawerNavigator/customHeader";
 import { mainStyle } from "../../theme/styles";
-import CustomBottomSheet from "../../components/BottomSheet/BottomSheet";
 import PuntosPaginacion from "../../components/PuntosPaginacion/PuntosPaginacion";
 import useMisBonsais from "./useMisBonsais";
 import misBonsaisStyle from "./misBonsaisStyles";
@@ -18,18 +17,13 @@ const MisBonsais = () => {
         halfBoxDistance,
         scrollX,
         handleViewableItemsChanged,
-        width,
-        bottomSheetRef,
-        handleSheetChanges,
-        animatedOpacity,
-        isBottomSheetOpen
+        width
     } = useMisBonsais()
 
     return (
         <View style={mainStyle.container}>
             <CustomHeader regresar={params?.regresar} bgColor={theme} />
-            {/* <View style={misBonsaisStyle.content}> */}
-            <Animated.View style={[misBonsaisStyle.content, { opacity: animatedOpacity }, { marginBottom: isBottomSheetOpen ? '62%' : '10%' }]}>
+            <View style={[misBonsaisStyle.content]}>
                 <Text style={mainStyle.mainTitle}>
                     Tus bonsais
                 </Text>
@@ -75,19 +69,7 @@ const MisBonsais = () => {
                     onViewableItemsChanged={handleViewableItemsChanged}
                 />
                 <PuntosPaginacion data={data} width={width} scrollX={scrollX} />
-            </Animated.View>
-            {/* </View> */}
-            <CustomBottomSheet
-                handleSheetChanges={handleSheetChanges}
-                index={0}
-                ref={bottomSheetRef}
-                snapPoints={['4%', '30%']}
-                backgroundColor={theme}
-            >
-                <View style={{ flex: 1, backgroundColor: 'grey' }}>
-                    <Text>Mostrar opciones aquí</Text>
-                </View>
-            </CustomBottomSheet>
+            </View>
         </View >
     )
 }

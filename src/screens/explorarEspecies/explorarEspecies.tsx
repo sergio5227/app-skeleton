@@ -2,7 +2,7 @@ import { Alert, ScrollView, StyleSheet, Text, View } from "react-native"
 import CustomHeader from "../../navigators/DrawerNavigator/customHeader";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { RootStackParams } from "../../navigators/mainNavigator/mainNavigator";
-import { mainCcolors, mainStyle } from "../../theme/styles";
+import { mainStyle } from "../../theme/styles";
 import { useSelector } from "react-redux";
 import especies from "../../data/bonsaiEspecies";
 import EspeciesCard from "../../components/especiesCard/especiesCard";
@@ -10,7 +10,6 @@ import EspeciesCard from "../../components/especiesCard/especiesCard";
 const ExplorarEspecies = () => {
     const theme = useSelector((state: any) => state?.app?.theme || '#fff');
     const params = useRoute<RouteProp<RootStackParams, 'ExplorarEspecies'>>().params;
-
     return (
         <View style={mainStyle.container}>
             <CustomHeader bgColor={theme} regresar={params?.regresar} />

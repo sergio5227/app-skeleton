@@ -44,7 +44,6 @@ const PuntosPaginacion: FC<PuntosPaginacionProps> = ({ data, width, scrollX }: P
                             },
                         ]}
                     />
-
                 );
             })}
         </View>
