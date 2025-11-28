@@ -16,7 +16,7 @@ const ExplorarEspecies = () => {
             <CustomHeader bgColor={theme} regresar={params?.regresar} />
             <View style={ExplorarEspeciesStyle.container}>
                 <Text style={mainStyle.mainTitle}>
-                    Explorar especies para bonsai
+                    Especies para bonsai
                 </Text>
                 <View style={{ flex: 1 }}>
                     <ScrollView style={{ flex: 1 }}>
@@ -24,16 +24,10 @@ const ExplorarEspecies = () => {
                             especies.map((a) => {
                                 return (
                                     <View key={a.id}>
-                                        <EspeciesCard  titulo={a.especie} descripcion={a.descripcion} img={require('../../assets/img/logo/hola_bonsai.jpg')} ver={() => Alert.alert('1', '1')} />
-                                        {/* <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', padding: 5 }}>
-                                            {a.tecnicas?.map((e, i) => {
-                                                return (
-                                                    <View key={'___' + i} style={{ borderWidth: 1, borderRadius: 10, padding: 3, margin: 2, backgroundColor: mainCcolors.primaryLight }}>
-                                                        <Text style={{ color: '#fff' }}>{e}</Text>
-                                                    </View>
-                                                )
-                                            })}
-                                        </View> */}
+                                        <EspeciesCard  
+                                            titulo={a.especie} 
+                                            descripcion={a.descripcion} 
+                                            img={require('../../assets/img/bonsai.jpg')} ver={() => Alert.alert('1', '1')} />
                                     </View>
                                 )
                             })

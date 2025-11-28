@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const especiesCardStyle = StyleSheet.create({
     especiesCardContainer: {
         width: '100%',
-        height: 190,
+        
         borderWidth: 1,
         borderColor: '#d0ceceff',
         marginVertical: 5,
@@ -28,6 +28,7 @@ const especiesCardStyle = StyleSheet.create({
         fontSize: 15
     },
     img: {
+        marginRight:10,
         width: 130,
         height: 130,
         borderRadius: 10

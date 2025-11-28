@@ -29,7 +29,7 @@ const EspeciesCard = (props: especiesCardProps) => {
                         <IconButton
                             icon="arrow-right"
                             iconColor={'#f12c2cff'}
-                            size={20}
+                            size={25}
                             style={{ margin: 0, padding: 0 }}
                             onPress={() => {
                                 ver()
@@ -38,7 +38,7 @@ const EspeciesCard = (props: especiesCardProps) => {
                     </View>
                 </View>
             </View>
-            <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center', padding:10 }}>
                 <Image source={img} style={especiesCardStyle.img} />
             </View>
         </View>

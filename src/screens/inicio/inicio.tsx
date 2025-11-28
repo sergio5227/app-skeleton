@@ -49,7 +49,9 @@ const Inicio = () => {
                 </View>
                 <View style={inicioStyles.cardContainer}>
                     <CardInfo title="Mis notificaciones" value={10} />
-                    <CardInfo title="Total bonsais" value={195} />
+                    <CardInfo title="Total bonsais" value={195} onPress={()=>{
+                        navigation.navigate('MisBonsais', { regresar: true, data: {} })
+                    }} />
                     <CardInfo title="favoritos" value={9} />
                     <CardInfo title="Que hacer en" value={'Primavera'} />
                 </View>
