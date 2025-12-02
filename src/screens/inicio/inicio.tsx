@@ -12,7 +12,7 @@ import inicioStyles from "./inicioStyles";
 
 const Inicio = () => {
 
-   const {
+    const {
         theme,
         isBottomSheetOpen,
         handleSheetChanges,
@@ -28,7 +28,7 @@ const Inicio = () => {
         handleViewableItemsChanged,
         width,
         animatedOpacity
-   } = useInicio();
+    } = useInicio();
 
     return (
         <View style={mainStyle.container}>
@@ -48,15 +48,155 @@ const Inicio = () => {
                     </Text>
                 </View>
                 <View style={inicioStyles.cardContainer}>
-                    <CardInfo title="Mis notificaciones" value={10} />
-                    <CardInfo title="Total bonsais" value={195} onPress={()=>{
+                    <CardInfo title="Mis notificaciones" value={10} onPress={() => {
+                        navigation.navigate('Notificaciones', {
+                            regresar: true,
+                            data: {
+                                notificaciones: [
+                                    {
+                                        id: 1,
+                                        titulo: 'Proximo trabajo viernes 25 diciembre',
+                                        descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                                        fecha: '24-12-2025',
+                                        estatus: 1,//Lista de estatus 1 es activa, 2 vista
+                                        tipoNotificacion: 1, // 1 recordatorios, 2 info general etc
+                                        detalles: {
+                                            fecha: '24-12-2025',
+                                            recordatorioDiasAntes: 1,
+                                            bonsai: {
+                                                id: 1
+                                            },
+                                            fechaTrabajo: '24-12-2025'
+                                        }
+                                    },
+                                    {
+                                        id: 2,
+                                        titulo: '¿Sabias que?',
+                                        descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                                        fecha: '24-12-2025',
+                                        estatus: 1,//Lista de estatus 1 es activa, 2 vista
+                                        tipoNotificacion: 2, // 1 recordatorios, 2 info general etc
+                                        detalles: {
+                                            fecha: '24-12-2025',
+                                            recordatorioDiasAntes: 1,
+                                            bonsai: null,
+                                            fechaTrabajo: '24-12-2025'
+                                        }
+                                    },
+                                    {
+                                        id: 3,
+                                        titulo: 'Proximo trabajo viernes 25 diciembre',
+                                        descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                                        fecha: '24-12-2025',
+                                        estatus: 2,//Lista de estatus 1 es activa, 2 vista
+                                        tipoNotificacion: 1, // 1 recordatorios, 2 info general etc
+                                        detalles: {
+                                            fecha: '24-12-2025',
+                                            recordatorioDiasAntes: 1,
+                                            bonsai: {
+                                                id: 1
+                                            },
+                                            fechaTrabajo: '24-12-2025'
+                                        }
+                                    },
+                                    {
+                                        id: 4,
+                                        titulo: '¿Sabias que?',
+                                        descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                                        fecha: '24-12-2025',
+                                        estatus: 1,//Lista de estatus 1 es activa, 2 vista
+                                        tipoNotificacion: 2, // 1 recordatorios, 2 info general etc
+                                        detalles: {
+                                            fecha: '24-12-2025',
+                                            recordatorioDiasAntes: 1,
+                                            bonsai: null,
+                                            fechaTrabajo: '24-12-2025'
+                                        }
+                                    },
+                                    {
+                                        id: 5,
+                                        titulo: 'Proximo trabajo viernes 25 diciembre',
+                                        descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                                        fecha: '24-12-2025',
+                                        estatus: 1,//Lista de estatus 1 es activa, 2 vista
+                                        tipoNotificacion: 1, // 1 recordatorios, 2 info general etc
+                                        detalles: {
+                                            fecha: '24-12-2025',
+                                            recordatorioDiasAntes: 1,
+                                            bonsai: {
+                                                id: 1
+                                            },
+                                            fechaTrabajo: '24-12-2025'
+                                        }
+                                    },
+                                    {
+                                        id: 6,
+                                        titulo: '¿Sabias que?',
+                                        descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                                        fecha: '24-12-2025',
+                                        estatus: 2,//Lista de estatus 1 es activa, 2 vista
+                                        tipoNotificacion: 2, // 1 recordatorios, 2 info general etc
+                                        detalles: {
+                                            fecha: '24-12-2025',
+                                            recordatorioDiasAntes: 1,
+                                            bonsai: null,
+                                            fechaTrabajo: '24-12-2025'
+                                        }
+                                    }
+                                ]
+                            }
+                        })
+                    }} />
+                    <CardInfo title="Total bonsais" value={195} onPress={() => {
                         navigation.navigate('MisBonsais', { regresar: true, data: {} })
                     }} />
-                    <CardInfo title="favoritos" value={9} />
-                    <CardInfo title="Que hacer en" value={'Primavera'} />
+                    <CardInfo title="favoritos" value={9} onPress={() => {
+                        navigation.navigate('Favoritos', {
+                            regresar: true, data: {
+                                favoritos: [
+                                    {
+                                        id: 1,
+                                        ruta: 'ExplorarEspecies',
+                                        titulo: 'Explorar especies',
+                                        bonsai: null,
+                                        entrada: null,
+                                        tipoFavorito: 1,//aqui la lista es 1 secciones, 2 arboles (mios o de otros), 3 entradas del blog
+                                    },
+                                    {
+                                        id: 2,
+                                        ruta: 'MisBonsaisDetalle',
+                                        titulo: 'Bonsai 1',
+                                        bonsai: {
+                                            id: 1
+                                        },
+                                        entrada: null,
+                                        tipoFavorito: 2,//aqui la lista es 1 secciones, 2 arboles (mios o de otros), 3 entradas del blog
+                                    },
+                                    {
+                                        id: 3,
+                                        ruta: 'DetalleEntrada',
+                                        titulo: 'Como hacer tanuki',
+                                        bonsai: null,
+                                        entrada: {
+                                            id: 1
+                                        },
+                                        tipoFavorito: 3,//aqui la lista es 1 secciones, 2 arboles (mios o de otros), 3 entradas del blog
+                                    }
+                                ]
+                            }
+                        })
+                    }} />
+                    <CardInfo title="Que hacer en" value={'Primavera'} onPress={() => {
+                        navigation.navigate('Quehacer', {
+                            regresar: true, data: {
+                                id: 1,
+                                titulo: 'Que hacer en primavera',
+                                descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+                            }
+                        })
+                    }} />
                 </View>
-
-                <Animated.View style={[{opacity:animatedOpacity},{ height: isBottomSheetOpen ? 100 : 250, position: 'relative', bottom: isBottomSheetOpen ? 290 : 100, width: '100%' }]}>
+                <Animated.View style={[{ opacity: animatedOpacity }, { height: isBottomSheetOpen ? 100 : 250, position: 'relative', bottom: isBottomSheetOpen ? 290 : 100, width: '100%' }]}>
                     <BarChart alto={isBottomSheetOpen ? 100 : 250} title="Tus bonsais por especie" />
                 </Animated.View>
             </ImageBackground>

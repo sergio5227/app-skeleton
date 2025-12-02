@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
 const favoritosStyle = StyleSheet.create({
-    perfilContainer:{
+    favoritosContainer:{
          marginTop: 50,
         flex: 1,
         marginVertical: 15,

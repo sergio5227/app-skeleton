@@ -13,6 +13,7 @@ import { mainCcolors, mainStyle } from '../../theme/styles';
 import { IconButton } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 import PerfilNavigator from '../perfilNavigator/perfilNavigator';
+import MisBonsaisNavigation from '../misBonsaisNavigation/misBonsaisNavigation';
 
 
 export type RootDrawerParams = {
@@ -23,7 +24,6 @@ export type RootDrawerParams = {
     MiPerfil: undefined;
     Contacto: undefined;
     Acerca: undefined;
-
 }
 
 const DrawerNavigator = () => {
@@ -56,7 +56,7 @@ const DrawerNavigator = () => {
             />
             <Drawer.Screen
                 name="MisBonsais"
-                component={MisBonsais}
+                component={MisBonsaisNavigation}
                 options={{
                     drawerItemStyle: mainStyle.drawerItemStyle,
                     drawerIcon: ({ color, size }) =>

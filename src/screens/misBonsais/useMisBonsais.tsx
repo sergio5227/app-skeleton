@@ -1,12 +1,12 @@
 import { Animated, Dimensions } from "react-native"
-import { RouteProp, useRoute } from "@react-navigation/native";
+import { NavigationProp, RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { RootStackParams } from "../../navigators/mainNavigator/mainNavigator";
 import { useSelector } from "react-redux";
 import { useCallback, useRef, useState } from "react";
 
 const useMisBonsais = () => {
     
-    
+    const navigation = useNavigation<NavigationProp<RootStackParams>>();
     const params = useRoute<RouteProp<RootStackParams, 'MisBonsais'>>().params;
     const theme = useSelector((state: any) => state?.app?.theme || '#fff');
     const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -53,7 +53,8 @@ const useMisBonsais = () => {
         halfBoxDistance,
         scrollX,
         handleViewableItemsChanged,
-        width
+        width,
+        navigation
     }
 }
 

@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { mainCcolors } from "../../theme/styles";
+import { isNull } from "lodash";
 
 interface CardInfoProps {
     title: string
-    value: any
+    value?: any
     color?: string
     onPress?: () => void
 }
@@ -14,7 +15,7 @@ const CardInfo = (props: CardInfoProps) => {
         <View style={{ ...styles.card, ...props?.color ? { backgroundColor: props?.color } : {} }}>
             <Pressable onPress={() => props?.onPress && props?.onPress()}>
                 <Text style={styles.cardLabel}>{props?.title} </Text>
-                <Text style={styles.cardValue}>{props?.value}</Text>
+                {props?.value !== null ? <Text style={styles.cardValue}>{props?.value}</Text>  : null }
             </Pressable>
         </View>
     );

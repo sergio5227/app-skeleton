@@ -1,5 +1,5 @@
 import { FlatList } from "react-native-gesture-handler";
-import { Animated, ImageBackground, Text, View } from "react-native"
+import { Animated, ImageBackground, Pressable, Text, View } from "react-native"
 import CustomHeader from "../../navigators/DrawerNavigator/customHeader";
 import { mainStyle } from "../../theme/styles";
 import PuntosPaginacion from "../../components/PuntosPaginacion/PuntosPaginacion";
@@ -17,7 +17,8 @@ const MisBonsais = () => {
         halfBoxDistance,
         scrollX,
         handleViewableItemsChanged,
-        width
+        width,
+        navigation
     } = useMisBonsais()
 
     return (
@@ -57,13 +58,57 @@ const MisBonsais = () => {
                         >
                             <View style={{ flex: 1, borderRadius: 20 }}>
                                 <View style={{ position: 'absolute', bottom: 0, marginBottom: 30 }}>
-                                    <Text style={{ fontSize: 50, fontWeight: 'bold', color: '#fff' }}> {item?.nombre} </Text>
+                                    <Pressable onPress={() => {
+                                        navigation.navigate('MisBonsaisDetalle', {
+                                            regresar: true, data: {
+                                                detalle: {
+                                                    id: 1,
+                                                    nombre: item?.nombre,
+                                                    especie: item?.especie,
+                                                    descripcion: 'Es un arbol...',
+                                                    portada: '../../assets/img/bonsai.jpg',
+                                                    fechasTrabajo: [
+                                                        {
+                                                            id: 1,
+                                                            fecha: '01-12-2025',
+                                                            descripcion: 'Corte de aciculas',
+                                                            materiales: null,
+                                                            imagenTrabajo: '../../assets/img/bonsai.jpg'
+                                                        }, {
+                                                            id: 2,
+                                                            fecha: '02-12-2025',
+                                                            descripcion: 'Abonado',
+                                                            materiales: [{
+                                                                id: 1,
+                                                                tipo: 1,
+                                                                nombre: 'Abono'
+                                                            }],
+                                                            imagenTrabajo: '../../assets/img/bonsai.jpg'
+                                                        }
+                                                    ],
+                                                    imagenesAvance: [
+                                                        {
+                                                            id: 1,
+                                                            img: '../../assets/img/bonsai.jpg',
+                                                            fecha: '01-12-2025'
+                                                        },
+                                                        {
+                                                            id: 2,
+                                                            img: '../../assets/img/bonsai.jpg',
+                                                            fecha: '02-12-2025'
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        })
+                                    }}>
+                                        <Text style={{ fontSize: 50, fontWeight: 'bold', color: '#fff' }}> {item?.nombre} </Text>
+                                    </Pressable>
                                     <View style={{ opacity: 0.6, backgroundColor: '#fff', position: 'relative', left: 5, borderRadius: 20 }}>
                                         <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#fff' }}> {item?.especie} </Text>
                                     </View>
                                 </View>
                             </View>
-
                         </ImageBackground>
                     )}
                     onViewableItemsChanged={handleViewableItemsChanged}
