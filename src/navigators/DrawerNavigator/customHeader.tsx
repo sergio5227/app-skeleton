@@ -23,7 +23,9 @@ const CustomHeader: FC<CustomHeaderProps> = (props: CustomHeaderProps) => {
                         iconColor={Appearance.getColorScheme() === 'dark' ? mainCcolors.whiteText : mainCcolors.darkText}
                         size={25}
                         style={mainStyle.iconsStyle}
-                        onPress={() => navigation.goBack()}
+                        onPress={() => {
+                            navigation.goBack()
+                        }}
                     /></TouchableOpacity> : null}
             {props?.title ? <Text style={mainStyle.headerTitle}>{props?.title}</Text> : null}
             {!props?.regresar ? <TouchableOpacity style={mainStyle.headerBottomMenu} onPress={() => navigation.openDrawer()}>

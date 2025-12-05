@@ -28,7 +28,8 @@ const InputField: React.FC<InputFieldProps> = (props) => {
         </Text>
       )}
 
-      <TextInput
+      <TextInput  
+        textAlignVertical="top"
         ref={refInput}
         placeholder={placeholder || ""}
         onFocus={handleFocus}

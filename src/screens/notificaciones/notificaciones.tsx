@@ -1,62 +1,57 @@
 import {
-    Animated,
-    Dimensions,
-    FlatList,
     Text,
+    TouchableOpacity,
     View
 } from "react-native"
 import CustomHeader from "../../navigators/DrawerNavigator/customHeader";
-import { mainStyle } from "../../theme/styles";
+import { mainCcolors, mainStyle } from "../../theme/styles";
 import { useSelector } from "react-redux";
 import notificacionesStyle from "./notificacionesStyle";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { RootStackParams } from "../../navigators/mainNavigator/mainNavigator";
-import { useRef, useState } from "react";
 import CardNotificacion from "../../components/CardNotificacion/CardNotificacion";
+import { SwipeListView } from "react-native-swipe-list-view";
+import { IconButton } from "react-native-paper";
 
 const Notificaciones = () => {
     const theme = useSelector((state: any) => state?.app?.theme || '#fff');
     const params = useRoute<RouteProp<RootStackParams, 'Notificaciones'>>().params;
-    const flatListRef = useRef<any>([]);
-    const [scrollViewWidth] = useState(0);
-    const boxWidth = scrollViewWidth * 0.9;
-    const boxDistance = scrollViewWidth - boxWidth;
-    const halfBoxDistance = boxDistance / 2;
-    const scrollX = useRef(new Animated.Value(0)).current;
-
+    
     return (
         <View style={mainStyle.container}>
             <CustomHeader bgColor={theme} regresar={params?.regresar} />
             <View style={notificacionesStyle.notificacionesContainer}>
                 <Text style={mainStyle.mainTitle}>
-                    Notificaciones
+                    Tus notificaciones
                 </Text>
                 <View style={notificacionesStyle.listContainer}>
-                    <FlatList
-                        ref={flatListRef}
+                    <SwipeListView
+                        showsVerticalScrollIndicator={false} 
+                        ListHeaderComponent={<></>}
+                        ListFooterComponent={<></>}
                         data={(params?.data?.notificaciones || [])}
-                        keyExtractor={(item, index) => `${item?.id}-${index}`}
-                        showsVerticalScrollIndicator={false}
-                        showsHorizontalScrollIndicator={false}
-                        scrollEventThrottle={1}
-                        snapToInterval={boxWidth}
-                        viewabilityConfig={{
-                            itemVisiblePercentThreshold: 50
-                        }}
-                        ListEmptyComponent={<Text>Sin registros</Text>}
-                        contentInset={{
-                            left: halfBoxDistance,
-                            right: halfBoxDistance,
-                        }}
-                        onScroll={Animated.event(
-                            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-                            { useNativeDriver: false }
+                        renderItem={(item: any, index) => {
+                            console.log(item)
+                            return (
+                            <CardNotificacion titulo={item?.item?.titulo} descripcion={item?.item?.descripcion} estatus={item?.item?.estatus} fecha={item?.item?.fecha} />
+                        )}}
+                        renderHiddenItem={(item: any, index) => (
+                            <View style={notificacionesStyle.rowBack}>
+                                <TouchableOpacity
+                                    style={[notificacionesStyle.backRightBtn, notificacionesStyle.backRightBtnRight]}
+                                    onPress={() => console.log(item?.item?.id)}
+                                >
+                                    <IconButton
+                                        icon="trash-can"
+                                        iconColor={ mainCcolors.whiteText}
+                                        size={30}
+                                        style={{ margin: 0, padding: 0 }}
+                                    />
+                                </TouchableOpacity>
+                            </View>
                         )}
-                        snapToAlignment="center"
-                        decelerationRate={'normal'}
-                        renderItem={({ item, index }) => (
-                            <CardNotificacion titulo={item?.titulo} descripcion={item?.descripcion} estatus={item?.estatus} fecha={item?.fecha} />
-                        )}
+                        rightOpenValue={-75}
+                        disableRightSwipe={false}
                     />
                 </View>
             </View >

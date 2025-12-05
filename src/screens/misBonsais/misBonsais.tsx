@@ -1,10 +1,12 @@
 import { FlatList } from "react-native-gesture-handler";
-import { Animated, ImageBackground, Pressable, Text, View } from "react-native"
+import { Animated, Appearance, ImageBackground, Pressable, Text, TextInput, View } from "react-native"
 import CustomHeader from "../../navigators/DrawerNavigator/customHeader";
-import { mainStyle } from "../../theme/styles";
+import { mainCcolors, mainStyle } from "../../theme/styles";
 import PuntosPaginacion from "../../components/PuntosPaginacion/PuntosPaginacion";
 import useMisBonsais from "./useMisBonsais";
 import misBonsaisStyle from "./misBonsaisStyles";
+import LoaderIndicator from "../../components/LoaderIndicator/LoaderIndicator";
+import { IconButton } from "react-native-paper";
 
 const MisBonsais = () => {
 
@@ -12,25 +14,43 @@ const MisBonsais = () => {
         params,
         theme,
         flatListRef,
-        data,
         boxWidth,
         halfBoxDistance,
         scrollX,
         handleViewableItemsChanged,
         width,
-        navigation
+        navigation,
+        setSearch,
+        loading,
+        filterData,
+        procesando
     } = useMisBonsais()
 
     return (
         <View style={mainStyle.container}>
             <CustomHeader regresar={params?.regresar} bgColor={theme} />
             <View style={[misBonsaisStyle.content]}>
-                <Text style={mainStyle.mainTitle}>
-                    Tus bonsais
-                </Text>
-                <FlatList
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <TextInput style={{
+                        backgroundColor: '#fff',
+                        padding: 10,
+                        borderRadius: 10,
+                        marginBottom: 15
+                    }} placeholder="Busca a tu bonsai" onChangeText={setSearch} />
+
+                    <IconButton
+                        icon="plus"
+                        iconColor={Appearance.getColorScheme() === 'dark' ? mainCcolors.whiteText : mainCcolors.darkText}
+                        size={20}
+                        onPress={() => {
+                            navigation.navigate('AgregaBonsai', { regresar: true, data: {} });
+                        }}
+                        style={{ borderWidth: 1, borderColor: Appearance.getColorScheme() === 'dark' ? mainCcolors.whiteText : mainCcolors.darkText }}
+                    />
+                </View>
+                {!procesando ? <FlatList
                     ref={flatListRef}
-                    data={data}
+                    data={filterData}
                     keyExtractor={(item, index) => `${index}-`}
                     horizontal
                     scrollEventThrottle={1}
@@ -59,7 +79,7 @@ const MisBonsais = () => {
                             <View style={{ flex: 1, borderRadius: 20 }}>
                                 <View style={{ position: 'absolute', bottom: 0, marginBottom: 30 }}>
                                     <Pressable onPress={() => {
-                                        navigation.navigate('MisBonsaisDetalle', {
+                                        navigation.navigate('BonsaiDetailNavigator', {
                                             regresar: true, data: {
                                                 detalle: {
                                                     id: 1,
@@ -112,9 +132,10 @@ const MisBonsais = () => {
                         </ImageBackground>
                     )}
                     onViewableItemsChanged={handleViewableItemsChanged}
-                />
-                <PuntosPaginacion data={data} width={width} scrollX={scrollX} />
+                /> : null}
+                {!procesando ? <PuntosPaginacion data={filterData} width={width} scrollX={scrollX} /> : null}
             </View>
+            <LoaderIndicator visible={loading || procesando} />
         </View >
     )
 }

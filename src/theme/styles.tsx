@@ -40,7 +40,7 @@ export const mainStyle = StyleSheet.create({
         margin: 0
     },
     iconsStyle: {
-        margin: 0
+        margin: 0,
     },
     headerBottonBack: {
         position: 'absolute',

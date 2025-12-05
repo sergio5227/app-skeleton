@@ -3,7 +3,9 @@ import {
   StatusBar,
   useColorScheme,
   View,
-  ActivityIndicator
+  ActivityIndicator,
+  PermissionsAndroid,
+  Platform
 } from 'react-native';
 import {
   SafeAreaProvider,

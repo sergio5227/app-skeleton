@@ -7,7 +7,11 @@ import CambiarPlan from '../../screens/cambiarPlan/cambiarPlan';
 import Notificaciones from '../../screens/notificaciones/notificaciones';
 import Favoritos from '../../screens/favoritos/favoritos';
 import Quehacer from '../../screens/quehacer/quehacer';
-import MisBonsaisDetalle from '../../screens/misBonsaisDetalle/misBonsaisDetalle';
+
+import AgregaBonsai from '../../screens/agregaBonsai/agregaBonsai';
+import VisionCamera from '../../components/Vision/vision';
+import VisionCameraDos from '../../components/Vision/visionDosPuntoCero';
+import BonsaiDetailNavigator from '../bonsaiDetailNavigator/bonsaiDetailNavigator';
 
 export type RootStackParams = {
     InicioApp: undefined;
@@ -18,7 +22,10 @@ export type RootStackParams = {
     Notificaciones:{ regresar:boolean, data:any }
     Favoritos:{ regresar:boolean, data:any }
     Quehacer:{ regresar:boolean, data:any }
-    MisBonsaisDetalle:{ regresar:boolean, data:any }
+    BonsaiDetailNavigator:{ regresar:boolean, data:any }
+    AgregaBonsai:{ regresar:boolean, data:any }
+    VisionCamera:{ onComplete:any }
+    VisionCameraDos:{ onComplete:any }
 }
 
 const MainNavigator = () => {
@@ -39,7 +46,10 @@ const MainNavigator = () => {
             <Stack.Screen options={{ headerShown: false }} name="Quehacer" component={Quehacer} />
             {/* Pantalla que desprende de un detalle de bonsai */}
             <Stack.Screen options={{ headerShown: false }} name="MisBonsais" component={MisBonsais} />
-            <Stack.Screen options={{ headerShown: false }} name="MisBonsaisDetalle" component={MisBonsaisDetalle} />
+            <Stack.Screen options={{ headerShown: false }} name="BonsaiDetailNavigator" component={BonsaiDetailNavigator} />
+            <Stack.Screen options={{ headerShown: false }} name="AgregaBonsai" component={AgregaBonsai} />
+            <Stack.Screen options={{ headerShown: false }} name="VisionCamera" component={VisionCamera} />
+            <Stack.Screen options={{ headerShown: false }} name="VisionCameraDos" component={VisionCameraDos} />
         </Stack.Navigator>
     )
 }
